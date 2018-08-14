@@ -18,9 +18,7 @@ jobs:
 
       - run:
           name: Deploying
-          command: 
-            -eb use Dev-env --profile default
-            -eb deploy --profile default
+          command: eb deploy Dev-env
 
 
 workflows:
