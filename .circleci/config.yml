@@ -20,7 +20,7 @@ jobs:
 
       - run:
           name: Deploying
-          command: eb deploy $CIRCLE_BRANCH-Dev-env
+          command: eb deploy $Dev-env
 
 workflows:
   version: 2
