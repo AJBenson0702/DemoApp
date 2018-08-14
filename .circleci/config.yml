@@ -1,16 +1,37 @@
-dependencies:
-  pre:
-    -pip install awsebcli
 
-deployment:
-  develop:
-    branch: develop
-    commands:
-      -eb use Dev-env --profile default
-      -eb deploy --profile default
 
-  production:
-    branch: master
-    commands:
-      -eb use prod-env-demo-app --profile default
-      -eb deploy --profile default
+
+version: 2
+jobs:
+  deploy:
+    working_directory: ~/app
+    docker:
+      - image: circleci/ruby:2.5.1
+    steps:
+      - checkout
+
+      - run:
+          name: Installing deployment dependencies
+          working_directory: /
+          command: |
+            sudo apt-get -y -qq update
+            sudo apt-get install python-pip python-dev build-essential
+            sudo pip install awsebcli --upgrade
+
+      - run:
+          name: Deploying
+          command: eb deploy $CIRCLE_BRANCH-Dev-env
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only:
+                - develop
+                - master
+
+
+
