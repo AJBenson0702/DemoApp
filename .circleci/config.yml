@@ -30,12 +30,7 @@ jobs:
           command: |
             eb use Dev-env --profile eb-cli
             eb deploy -v --staged --profile eb-cli
-      - run:
-          name: Deploying to eb if branch is develop
-          command: |
-            eb use prod-env-demo-app --profile default
-            eb deploy --profile default
-
+     
 
 workflows:
   version: 2
