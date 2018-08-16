@@ -9,16 +9,32 @@ jobs:
       - checkout
 
       - run:
-          name: Installing deployment dependencies
+          name: Installing awscli
           working_directory: /
           command: |
             sudo apt-get -y -qq update
             sudo apt-get install python-pip python-dev build-essential
             sudo pip install awsebcli --upgrade
-
+            
       - run:
-          name: Deploying
-          command: eb deploy Dev-env
+          name: Create AWS credentials manually
+          command: |
+            mkdir ~/.aws
+            touch ~/.aws/config
+            chmod 600 ~/.aws/config
+            echo "[profile eb-cli]" > ~/.aws/config
+            echo "aws_access_key_id=$AWS_ACCESS_KEY_ID" >> ~/.aws/config
+            echo "aws_secret_access_key=$AWS_SECRET_ACCESS_KEY" >> ~/.aws/config
+      - run:
+          name: Deploying to eb if branch is develop
+          command: |
+            eb use Dev-env --profile default
+            eb deploy --profile default
+      - run:
+          name: Deploying to eb if branch is develop
+          command: |
+            eb use prod-env-demo-app --profile default
+            eb deploy --profile default
 
 
 workflows:
