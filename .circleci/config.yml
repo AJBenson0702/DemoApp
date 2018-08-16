@@ -28,8 +28,8 @@ jobs:
       - run:
           name: Deploying to eb if branch is develop
           command: |
-            eb use Dev-env --profile default
-            eb deploy --profile default
+            eb use Dev-env --profile eb-cli
+            eb deploy -v --staged --profile eb-cli
       - run:
           name: Deploying to eb if branch is develop
           command: |
