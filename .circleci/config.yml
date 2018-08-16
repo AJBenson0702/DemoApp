@@ -28,8 +28,14 @@ jobs:
       - run:
           name: Deploying to eb if branch is develop
           command: |
-            eb use Dev-env --profile eb-cli
-            eb deploy -v --staged --profile eb-cli
+            if [[ "${CIRCLE_BRANCH}" == develop ]]; then
+              eb use Dev-env --profile eb-cli
+              eb deploy -v --staged --profile eb-cli
+            elif 
+              [[ "${CIRCLE_BRANCH}" == master ]]; then
+              eb use use prod-env-demo-app --profile eb-cli
+              eb deploy -v --staged --profile eb-cli
+            fi
      
 
 workflows:
