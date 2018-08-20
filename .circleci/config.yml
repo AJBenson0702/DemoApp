@@ -32,7 +32,7 @@ jobs:
               eb deploy -v --staged --profile eb-cli
             elif 
               [[ "${CIRCLE_BRANCH}" == master ]]; then
-              eb use use prod-env-demo-app --profile eb-cli
+              eb use prod-env-demo-app --profile eb-cli
               eb deploy -v --staged --profile eb-cli
             fi
      
