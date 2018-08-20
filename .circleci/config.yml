@@ -25,7 +25,7 @@ jobs:
             echo "aws_access_key_id=$AWS_ACCESS_KEY_ID" >> ~/.aws/config
             echo "aws_secret_access_key=$AWS_SECRET_ACCESS_KEY" >> ~/.aws/config
       - run:
-          name: Deploying to eb if branch is develop
+          name: Deploying to eb if branch environment
           command: |
             if [[ "${CIRCLE_BRANCH}" == develop ]]; then
               eb use Dev-env --profile eb-cli
